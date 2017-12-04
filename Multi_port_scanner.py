@@ -10,7 +10,6 @@ def one_port_scan(host, port):
     with socket.socket() as scan:
         try:
             scan.connect((host, port))
-            scan.settimeout(0.5)
         except socket.error:
             print('\nВремя сканирования: ', format(time.time() - start, '.2f'))
             print(port, ' -- close')
@@ -33,6 +32,7 @@ def connect(host, port, results=None):
 def multi_port_scan(host):
     start = time.time()
     open_ports = []
+    socket.setdefaulttimeout(0.5)
     with ThreadPoolExecutor(max_workers=512) as executor:
         print('\nИдёт сканирование ' + host, '\n')
 
